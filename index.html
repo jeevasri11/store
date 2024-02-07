@@ -1,0 +1,234 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookSky</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            font-family: 'poppins',sans-serif;
+        }
+        .navbar{
+            background-color: #FD6569;
+    padding: 10px;
+    /* background-color: rgb(255,101,105); */
+    border-top-right-radius: 11px;
+    border-top-left-radius: 11px;
+    /* position: absolute; */
+
+        }
+        .container{
+            padding: 10px;
+
+        }
+        .book-container{
+            padding: 15px;
+            width: 25%;
+            background-color: black;
+            border-radius: 10px;
+            color: white;
+            margin: 30px;
+            display: inline-block;
+            vertical-align: top;
+
+        }
+        .book-container h2{
+            color: #FD6569;
+        }
+        .book-container button{
+            background-color: #FD6569;
+            color: black;
+            border-radius: 10px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            padding-left: 10px;
+            padding-right: 10px;
+            border: none;
+            margin-top: 10px;
+
+        }
+        .add-button{
+            background-color: #FD6569;
+            color: black;
+            border-radius: 100%;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-left: 30px;
+            padding-right: 30px;
+            font-size: 40px;
+            border: none;
+            position:fixed;
+            bottom: 30px;
+            right: 30px;
+        }
+        .popup-overlay{
+            background-color: black;
+            opacity: 0.8;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            display: none;
+
+        }
+        .popup-box{
+            background-color: #FD6569;
+            width: 40%;
+            padding: 40px;
+            border-radius: 10px;
+            position: absolute;
+            top: 20%;
+            left: 30%;
+            z-index: 2;
+            display: none;
+        }
+        .popup-box input{
+            background:transparent;
+            border:none ;
+            width: 100%;
+            margin: 5px;
+            padding: 20px;
+            font-size: 20px;
+            border-bottom: solid black 2px;
+
+        }
+        .popup-box textarea{
+            background:transparent;
+            border:none ;
+            width: 100%;
+            margin: 5px;
+            padding: 20px;
+            font-size: 20px;
+            border: solid black 2px;
+
+        }
+        popup-box input::placeholder{
+            color: black;
+        }
+        
+        popup-box textarea::placeholder{
+            color: black;
+        }
+        .popup-box button{
+            background-color: black;
+            padding-left: 20px;
+            padding-right: 20px;
+            border: none;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            color: white;
+            margin: 5px;
+        }
+        .popup-box input:focus{
+            outline: none;
+        }
+        
+        .popup-box textarea:focus{
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>BookSky</h1>
+
+    </div>
+    <div class="container">
+        <div class="book-container">
+            <h2>Rich Dad Poor Dad</h2>
+
+            <h5>Robert</h5>
+            
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti qui odit ipsum optio fugit omnis deserunt cum ipsa esse dolores odio modi assumenda mollitia culpa iusto est quaerat dolorum perspiciatis praesentium dignissimos, consequatur similique. Animi hic eos nobis distinctio modi laudantium rerum esse voluptatem asperiores, amet est velit quis maiores?</p>
+            <button onclick="deletebook(event)">Delete</button>
+        </div>
+
+
+    </div>
+
+<div class="popup-overlay">
+    <div class="popup-box">
+
+        <h2>Add Book</h2>
+        <form >
+            <input type="text" placeholder="Book Title" id="book-title-input">
+            <input type="text" placeholder="Book Author" id="book-author-input">
+            <textarea placeholder="Short Description" id="book-description-input"></textarea>
+            <button id="add-book">ADD</button>
+            <button id="cancel-popup">CANCEL</button>
+        </form>
+
+    </div>
+</div>
+
+    <button  class="add-button" id="add-popup-button">+</button>
+</body>
+
+
+
+
+
+
+
+
+
+<script>
+var popupoverlay=document.querySelector(".popup-overlay")
+var popupbox=document.querySelector(".popup-box")
+var addpopupbutton=document.getElementById("add-popup-button")
+addpopupbutton.addEventListener("click",function(){
+    popupoverlay.style.display="block";
+    popupbox.style.display="block";
+})
+
+
+var cancelpopup=document.getElementById("cancel-popup")
+cancelpopup.addEventListener("click",function(event){
+    event.preventDefault();
+    popupoverlay.style.display="none";
+    popupbox.style.display="none";
+})
+
+var container=document.querySelector(".container");
+var addbook=document.getElementById("add-book");
+var booktitleinput=document.getElementById("book-title-input");
+var bookauthorinput=document.getElementById("book-author-input");
+var bookdescriptioninput=document.getElementById("book-description-input");
+
+addbook.addEventListener("click",function(event){
+    event.preventDefault();
+    var div=document.createElement("div");
+    div.setAttribute("class","book-container")
+    div.innerHTML=` <h2>${booktitleinput.value}</h2>
+
+<h5>${bookauthorinput.value}</h5>
+
+<p>${bookdescriptioninput.value}</p>
+<button onclick="deletebook(event)" >Delete</button>`
+    container.append(div);
+    popupoverlay.style.display="none";
+    popupbox.style.display="none";
+
+})
+function deletebook(event){
+    event.target.parentElement.remove();
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+</html>
